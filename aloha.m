@@ -1,0 +1,10 @@
+testIm = imread('../H1-test/test2.bmp');
+testIm = uint8(testIm<220);
+ltestIm = bwlabel(testIm);
+[testFeatures, tbb] = findBoundingBox(ltestIm, testIm, 1);
+[testRow, testCol] = size(testFeatures);
+[trainFeatures, trainLabels] = OCR_Extract_Features('H1-16images', 0);
+[normTrainFeat, means, sigmas] = Normalization(trainFeatures);
+normTestFeat = (testFeatures - ones(testRow, 1) * means) ./ (ones(testRow, 1) * sigmas);
+distance = dist2(normTestFeat, normTrainFeat); 
+imagesc(distance);

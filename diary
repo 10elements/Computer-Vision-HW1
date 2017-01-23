@@ -1,0 +1,8 @@
+z = imread('../H1-16images/z.bmp');
+z = uint8(z<220);
+imagesc(z)
+labeledZ = bwlabel(z);
+[F, B] = findBoundingBox(labeledZ, z, 1);
+dis = dist2(F, F);
+imagesc(dis)
+diary off
